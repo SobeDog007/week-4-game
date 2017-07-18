@@ -5,6 +5,9 @@
 
 // This file contains the Javascript for the Crystal Collector game.
 
+// OBJECTS
+// ===========================================================================
+
 var game = {
 
 	// Basic game components:
@@ -31,141 +34,92 @@ var game = {
     	this.userScore     = 0;
     	this.crystalValues = [];
 
+    	// Assign the value for the goal score.
     	this.goalScore = Math.floor(Math.random() * 
-    		 ((maxGoalScore + 1) - minGoalScore) + minGoalScore);
+    		((this.maxGoalScore + 1) - this.minGoalScore) + 
+    		  this.minGoalScore);
+
     	console.log(this.goalScore);
 
     	// Assign values for the crystals.
    		for (var i = 0; i < this.numberCrystals; i++)
    		{
    			this.crystalValues[i] = Math.floor(Math.random() * 
-   				 ((maxCrystalScore + 1) - minCrystalScore) + minCrystalScore);
-   			console.log(this.crystalValue[i]);
+   				((this.maxCrystalValue + 1) - this.minCrystalValue) + 
+   				  this.minCrystalValue);
+
+   			console.log(this.crystalValues[i]);
    		}
     },
-
-    // Checks if the guessed letter is in the puzzle word.  If the guess is
-    // correct, update the displayArray.  Otherwise, reduce the number of
-    // remaining guesses and add the guessed letter to the guessArray.
-    // guessChecker: function(userGuess, puzzle)
-    // {
-    // 	var guessFound = false;
-
-    //     for (var i = 0; i < puzzle.length; i++)
-    //     {
-    //     	if (userGuess.toLowerCase() === puzzle.charAt(i).toLowerCase())
-    //     	{
-    //     		game.displayArray[i] = puzzle.charAt(i);
-    //     		guessFound = true;
-
-    //     		// If no more dashes are in the array then the game is won!
-    //     		if (!game.displayArray.includes("_"))
-    //     		{
-    //     			game.gamesWon++; 
-
-    //     			game.resetGame();
-    //     		}
-    //     	}
-    //     }
-
-    //     if (guessFound === false)
-    //     {
-    //     	// If the user has already guessed this letter, do not penalize again.
-    //     	if (!this.guessArray.includes(userGuess))
-    //     	{
-    //     		this.numberGuesses--;
-    //     		this.guessArray.push(userGuess);
-
-    //     		// Check to see if there are any guesses left.
-    //     		if (this.numberGuesses === 0)
-    //     		{
-    //     			// Game Over!
-    //     			game.resetGame();
-    //     		}
-    //     	}
-    //     }
-    // },
-
-    // resetGame: function()
-    // {
-
-    // }
 };
 
 // VARIABLES
-// ==========================================================================
+// ===========================================================================
 var gameInProgress = false;
 
 // MAIN EXECUTION
-// ==========================================================================
+// ===========================================================================
 
-// This function is run whenever the user clicks a crystal.
-//document.onkeyup = function(event) {
+$(document).ready(function() {
 
-$(".btn").on("click", function() {
+	// This function is run whenever the user clicks the "Start!" button.
+	$("#start-button").on("click", function() {
 
-	if (gameInProgress === false)
-	{
-		game.startNewGame();
 		gameInProgress = true;
-	}
 
-	// Add the current value of the clicked crystal to the user score.
-	//var updatedScore = game.userScore + 
-
-	var clickedElement = $(this);
-
-    console.log(clickedElement);
-    console.log(clickedElement.attr("value"));
-
-    //$("#user-score-box").text(clickedElement.attr("value"));
-
-	// If the user score equals the goal score, alert that the user has won
-	// the game.
-	if (game.userScore == game.goalScore)
-	{
-		alert("You Win!  Let's play again!")
-		game.wins++;
 		game.startNewGame();
-	}
 
+		// Add the crystal values to the button elements.
+		$("#button-1").attr('data-number', game.crystalValues[0]);
+		$("#button-2").attr('data-number', game.crystalValues[1]);
+		$("#button-3").attr('data-number', game.crystalValues[2]);
+		$("#button-4").attr('data-number', game.crystalValues[3]);
 
-	// If the user score exceeds the goal score, alert that the user has lost
-	// the game.
-	if (game.userScore > game.goalScore)
-	{
-		alert("You Lose!  Let's play again!")
-		game.losses++;
-		game.startNewGame();
-	}
+		// Display the current score values and win/loss record.
+		$("#goal-score-box").html(game.goalScore);
+		$("#user-score-box").html(game.userScore);
+		$("#wins").html("Wins: " + game.wins);
+		$("#losses").html("Losses: " + game.losses);
+	});	
 
+	// This function is run whenever the user clicks a crystal button button.
+	$(".crystal").on("click", function() {
 
+		// If the user clicks a crystal button before starting the game,
+		// nothing happens.
+		if (game.goalScore !== 0 && gameInProgress === true)
+		{
+			// Add the current value of the clicked crystal to the user score.
+			//var updatedScore = game.userScore + 
+			var clickedElement = $(this);
 
+		    //console.log(clickedElement);
+		    console.log(clickedElement.attr("data-number"));
+		    game.userScore += parseInt(clickedElement.attr("data-number"));
 
+		    $("#user-score-box").html(game.userScore);
 
+			// If the user score equals the goal score, alert that the user has won
+			// the game.
+			if (game.userScore === game.goalScore)
+			{
+				alert("You Win!  Click Start! to play again!");
+				game.wins++;
+				$("#wins").html("Wins: " + game.wins);
 
- //    // Determines which key was pressed.
- //    var userGuess = event.key;
+				gameInProgress = false;
+			}
 
-	// // If the displayArray is empty, choose a word and build the array.
-	// if (game.displayArray.length === 0)
-	// {
-	// 	puzzle = game.selectNewWord();
-	// 	console.log("Puzzle: " + puzzle);
+			// If the user score exceeds the goal score, alert that the user has lost
+			// the game.
+			if (game.userScore > game.goalScore)
+			{
+				alert("You Lose!  Click Start! to play again!");
+				game.losses++;
+				$("#losses").html("Losses: " + game.losses);
 
-	// 	game.arrayBuilder(puzzle);
-	// 	console.log("Dashes: " + game.displayArray);
-	// }
-
- //    //Check the guessed letter against the puzzle word.
- //    game.guessChecker(userGuess, puzzle);
-
-	// var html =
- //        "<p>Wins: " + game.gamesWon + "</p>" +
- //        "<p>Current Word: " + game.displayArray + "</p>" +
- //        "<p>Guesses Remaining: " + game.numberGuesses + "</p>" +
- //        "<p>Letters Guessed: " + game.guessArray + "</p>";
-
- //        // Set the inner HTML contents of the #game div to our html string
- //        document.querySelector("#game").innerHTML = html;
- });
+				gameInProgress = false;
+			}
+		}
+	});
+});

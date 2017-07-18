@@ -24,7 +24,7 @@
 
             <div class="row">  <!-- Start: Row # 1 -->
 
-                <div id="title-box" class="col-xs-6 col-xs-offset-1">  <!-- Start: Column # 1 -->
+                <div id="title-box" class="col-xs-6">  <!-- Start: Column # 1 -->
 
                     <h1>Crystals Collector</h1>
 
@@ -34,7 +34,7 @@
 
             <div class="row">  <!-- Start: Row # 2 -->
 
-                <div id="instructions-box" class="col-xs-6 col-xs-offset-1">  <!-- Start: Column # 1 -->
+                <div id="instructions-box" class="col-xs-6">  <!-- Start: Column # 1 -->
 
                     <p>You will be given a random number at the start of the game.</p><br>
 
@@ -48,7 +48,7 @@
 
                     <p>At the beginning of each game, the values of each crystal will change.</p><br>
 
-                    <p>Click a crystal to begin!</p>
+                    <button id="start-button" class="btn btn-primary"><h1>Start!</h1></button>
 
                 </div>  <!-- End: Column # 1 -->
 
@@ -56,19 +56,15 @@
 
             <div class="row">  <!-- Start: Row # 3 -->
 
-                <div class="col-xs-3 col-xs-offset-1">  <!-- Start: Column # 1 -->
+                <div id="goal-note-box" class="col-xs-2">  <!-- Start: Column # 1 -->
 
-                    <div id="goal-note-box">
-                        <h5>Your Goal Score: </h5>
-                    </div>
+                    <h5><strong>Your Goal Score: </strong></h5>
 
                 </div>  <!-- End: Column # 1 -->
 
-                <div class="col-xs-3 col-xs-offset-1">  <!-- Start: Column # 2 -->
+                <div id="user-note-box" class="col-xs-2">  <!-- Start: Column # 2 -->
 
-                    <div id="user-note-box" >
-                    <h5>Your Total Score: </h5>
-                    </div>
+                    <h5><strong>Your Total Score: </strong></h5>
 
                 </div>  <!-- End: Column # 2 -->
 
@@ -76,11 +72,11 @@
 
             <div class="row">  <!-- Start: Row # 4 -->
 
-                <div id="goal-score-box" class="col-xs-3 col-xs-offset-1">  <!-- Start: Column # 1 -->
+                <div id="goal-score-box" class="col-xs-2">  <!-- Start: Column # 1 -->
 
                 </div>  <!-- End: Column # 1 -->
 
-                <div id="user-score-box" class="col-xs-3 col-xs-offset-1">  <!-- Start: Column # 2 -->
+                <div id="user-score-box" class="col-xs-2">  <!-- Start: Column # 2 -->
 
                 </div>  <!-- End: Column # 2 -->
 
@@ -88,25 +84,33 @@
 
             <div class="row">  <!-- Start: Row # 5 -->
 
-                <div class="panel panel-default">
+                <div id="crystal-buttons" class="panel-body">
 
-                    <div id="crystal-buttons" class="panel-body">
-                        <button id="button-1" class="btn btn-primary" value="1"><h1>1</h1></button>
-                        <button id="button-2" class="btn btn-primary" value="2"><h1>2</h1></button>
-                        <button id="button-3" class="btn btn-primary" value="3"><h1>3</h1></button>
-                        <button id="button-4" class="btn btn-primary" value="4"><h1>4</h1></button>
-                
-                    </div>
+                    <button id="button-1" class="btn btn-primary crystal">
+                            <img src="assets/images/ruby.jpg" width="100" 
+                                 height="100" alt="Crystal # 1"> </button>
+
+                    <button id="button-2" class="btn btn-primary crystal" value="2">
+                            <img src="assets/images/topaz.jpg" width="100" 
+                                 height="100" alt="Crystal # 2"> </button>
+
+                    <button id="button-3" class="btn btn-primary crystal" value="3">
+                            <img src="assets/images/jade.jpg" width="100" 
+                                 height="100" alt="Crystal # 3"> </button>
+
+                    <button id="button-4" class="btn btn-primary crystal" value="4">
+                            <img src="assets/images/sapphire.jpg" width="100" 
+                                 height="100" alt="Crystal # 4"> </button>
                 </div>
 
             </div>  <!-- End: Row # 5 -->
 
             <div class="row">  <!-- Start: Row # 6 -->
 
-                    <div id="win-loss-box" class="col-xs-3 col-xs-offset-1">  <!-- Start: Column # 1 -->
+                    <div id="win-loss-box" class="col-xs-3">  <!-- Start: Column # 1 -->
 
-                        <h3>Wins:   </h3><br>
-                        <h3>Losses: </h3>
+                        <h3 id="wins">Wins:   </h3><br>
+                        <h3 id="losses">Losses: </h3>
 
                     </div>  <!-- End: Column # 1 -->
 
